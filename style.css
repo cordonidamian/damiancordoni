@@ -1,0 +1,49 @@
+header{
+  background-color: #2d363f;  
+  width: 100%;
+}
+
+.title{
+  margin-top: 5px;
+  color: #d6d8d7;
+  font-size: 50px;
+  
+}
+
+.title a {
+  text-decoration: none;
+  border-bottom: solid 1px white;
+  padding-bottom: 15px;
+  
+}
+
+.subtittle{
+  color: #d6d8d7;
+  font-size: 20px;
+}
+
+.w3-opacity{
+  font-size: 15px;
+  
+}
+
+.stepnum{
+  font-size: 20px;
+  background-color: #2d363f;
+  color: aliceblue;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 4px;
+}
+
+.code{
+  background-color: #6f757a73;
+  color: rgb(2, 2, 2);
+  padding-left: 1px;
+  padding-top: 0.1%;
+  padding-bottom: 0.1%
+}
+
+.details{
+  color: rgb(70, 177, 28);
+}

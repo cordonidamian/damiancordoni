@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<title>Damián Cordoni</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="style.css">
+
+<body class="w3-light-grey">
+
+    <!-- w3-content defines a container for fixed size centered content, 
+and is wrapped around the whole page content, except for the footer in this example -->
+    <div class="w3-content" style="max-width:1400px">
+
+
+
+        <!-- Header -->
+        <header class="w3-container w3-center w3-padding-32">
+            <h1 class="title"><b> <a href="index.html">How I´m becoming a coding guy</a> </b></h1>
+            <p class="subtittle">Welcome to this journey, everybody is invited to explore and collaborate!</p>
+        </header>
+
+
+
+
+        <!-- Blog entry -->
+        <div class="w3-card-4 w3-margin w3-white">
+            <img src="img/python_script.jpg" style="width:100%">
+            <div class="w3-container">
+                <h3><b>My first Python Script - How to compare two Excel files?</b></h3>
+                <h5>Last 3 weeks I worked in a Python script to automate a monthly task at work that is very time
+                    consuming.<span class="w3-opacity">March 28, 2020</span></h5>
+            </div>
+
+            <div class="w3-container">
+                <p>Hi there! luckily I started to work with Python!</p>
+
+                <p>Let me share with you the code that I used to create this script to automate a task at work that is
+                    very time consuming. Basically we will use this script to compare two Excel files, of course that
+                    both must have the same format information. My case have 12 Excel files with several information in each.
+                </p>
+                <p>
+                    This won´t be a tutorial so you will need to revise the code, if you need any detail just ping me.
+                </p>
+                <p>
+                    Let's start!
+                </p>
+
+                <p class=details>
+                    This will show us what is the current working directory, just for check.
+                </p>
+
+                <div class="code">
+                    <pre>
+                        <code>
+                            # GET WORKING DIRECTORY
+                            current_dir = os.getcwd()
+                            print(current_dir)           
+                        </code>
+                    </pre>
+                </div>
+                <br>
+                <p class=details>
+                    I created this validation step to check if the file that the script will create after run already
+                    exist. This will give you the change to back up the existing file before re-write in it:
+                </p>
+
+                <div class="code">
+                    <pre>
+                        <code>
+                            # VALIDATION FOR OUTPUT.TXT - IF EXIST
+                            flag = 'no_salir'
+                            
+                            while flag == 'no_salir':
+                                if (os.path.isfile("output.txt")) == True:
+                                    rta= input('Existe un archivo con el mismo nombre que el que se va a genererar (output.txt), si desea 
+                                    eliminarlo ingrese y: ')
+                                    if rta == 'y':
+                                        os.remove("output.txt")
+                                        flag == 'salir'
+                                        break
+                                
+                                    else:
+                                        flag == 'no_salir'
+                                        
+                                else:
+                                    flag == 'salir'
+                                    break                                     
+                        </code>
+                    </pre>
+                </div>
+                <br>
+
+                <p class=details>
+                    The code works with two Excel file, in this case we need to compare last month against current mont,
+                    so this will validate that you enter a valid month name. This part of the code validates last month:
+                </p>
+
+                <div class="code">
+                    <pre>
+                        <code>
+                            # PREVIOUS MONTH FUNCTION VALIDATION
+                            def validate_previous_month():                            
+                                flag = 0                            
+                                while flag == 0:
+                                    previous = input('Ingrese el mes anterior: \n')                            
+                                    previous_month = previous.capitalize()                                                   
+                                    if previous_month == 'Enero' or previous_month ==  'Febrero' or previous_month ==  'Marzo' or previous_month ==  'Abril'
+                                    or previous_month == 'Mayo' or previous_month == 'Junio' or previous_month == 'Julio' or previous_month == 'Agosto'
+                                    or previous_month == 'Septiembre' or previous_month == 'Octubre' or previous_month == 'Noviembre' 
+                                    or previous_month == 'Diciembre':
+                                        print('El mes "anterior" fue ingresado correctamente')
+                                        flag = 1
+                                    else: 
+                                        print('El dato ingresado no es válido!')                            
+                                return previous_month                                                
+                            p_month = validate_previous_month()                                    
+                        </code>
+                    </pre>
+                </div>
+                <br>
+                <p class=details>
+                    And this part of validates current month:
+                </p>
+                <div class="code">
+                    <pre>
+                        <code>
+                            # CURRENT MONTH FUNCTION VALIDATION
+                            def validate_current_month(p_m):                       
+                                flag = 0
+                                while flag == 0:
+                                    current = input('Ingrese el mes actual: \n')
+                            
+                                    current_month = current.capitalize()   
+                                    if (current_month == 'Enero' or current_month ==  'Febrero' or current_month ==  'Marzo' or current_month ==  'Abril' 
+                                    or current_month == 'Mayo' or current_month == 'Junio' or current_month == 'Julio' or current_month == 'Agosto' 
+                                    or current_month == 'Septiembre' or current_month == 'Octubre' or current_month == 'Noviembre' 
+                                    or current_month == 'Diciembre') and current_month != p_m:
+                                        print('El mes "actual" fue ingresado correctamente')
+                                        flag = 1
+                                    else: 
+                                        print('El dato ingresado no es válido o es identico al "mes anterior"!')                            
+                                return current_month                               
+                            c_month = validate_current_month(p_month)  
+
+                            # END CURRENT MONTH FUNCTION VALIDATION                    
+                        </code>
+                    </pre>
+                </div>
+
+                <br>
+                <p class=details>
+                    I use xlrd module to open the Excel, select the sheet where is located the information and save
+                    the rows number to use as reference for the for loop.
+                <p class=details>The output information will be saved in a TXT file.</p>
+                </p>
+                <div class="code">
+                    <pre>
+                        <code>
+                            # START
+
+                            with open('output.txt', 'a') as f:
+
+                                f.write('START - \n\n')
+
+
+                            # SAVING INFO PREVIOUS MONTH
+                            info_previous_month = xlrd.open_workbook('Name_of_the_excel_file_'+ p_month +'_2020.xlsx')
+
+                            # SELEC CORRECT SHEET
+                            sheet_a = info_previous_month.sheet_by_index(1) 
+
+                            # HOW MANY ROWS?
+                            rows_previous_month = sheet_a.nrows
+
+
+                            # SAVING INFO CURRENT MONTH
+                            info_current_month = xlrd.open_workbook('Name_of_the_excel_file_'+ p_month +'_2020.xlsx')
+
+                            # SELEC CORRECT SHEET
+                            sheet_b = info_current_month.sheet_by_index(1) 
+
+                            # HOW MANY ROWS?
+                            rows_current_month = sheet_b.nrows                     
+                        </code>
+                    </pre>
+                </div>
+
+                <br>
+                <p class=details>
+                    And in the following code I basically compare which element were deleted and which are news:
+                </p>
+
+                <div class="code">
+                    <pre>
+                        <code>
+                            with open('output.txt', 'a') as f:
+    
+                            f.write('SERVIDORES NO ENCONTRADOS EN LA PLANILLA ACTUAL:\n\n')
+                           
+                        # CREATE AN OBJECT TO SAVE SERVERS
+                            
+                            class orcle_server:
+                                HOST_NAME = ''
+                                USERNAME = ''
+                                
+                            obj = orcle_server()
+                            
+                            servers_not_found = set()
+                            
+                            flag = 0
+                            for i in range(rows_previous_month):
+                                for j in range(rows_current_month):       
+                                    
+                                    if ((sheet_a.cell_value(i, 0)) == (sheet_b.cell_value(j, 0))) and ((sheet_b.cell_value(j, 1)) == (sheet_a.cell_value(i, 1))):            
+                            
+                                        flag = 0
+                                        break
+                                    else:
+                            
+                                        flag = 1
+                                        
+                                if flag == 1:
+                                    
+                                
+                                    obj = ((sheet_a.cell_value(i, 0)), (sheet_a.cell_value(i, 1)))
+                                    
+                        # SAVE OBJECT SERVERS IN A SET (TO AVOID DUPLICATES)
+                                    servers_not_found.add(obj)
+                                
+                        
+                            if str(servers_not_found) == 'set()':
+                                f.write('Sin faltantes de servidores\n\n')
+                            else:    
+                                f.write(str(servers_not_found))      
+                                           
+                        </code>
+                    </pre>
+                </div>
+                <p class=details>
+                    sheet_a.cell_value(i, 0) will point to an specific cell into the sheet.
+                </p>
+
+                <br>
+
+                <div class="code">
+                    <pre>
+                        <code>
+                            with open('output.txt', 'a') as f:
+                            f.write('\n')
+                            f.write('\nUSUARIOS ELIMINANDOS:\n\n')
+                        # PRINT HEADER
+                            f.write(str(sheet_a.cell_value(0, 0))+';'+ str(sheet_a.cell_value(0, 1))+';'+ str(sheet_a.cell_value(0, 2))
+                            +';'+str(sheet_a.cell_value(0, 3)) +';'+ str(sheet_a.cell_value(0, 4))+';'+ str(sheet_a.cell_value(0, 7))+'\n')
+                           
+                            
+                            flag = 0
+                            for i in range(rows_previous_month):
+                                for j in range(rows_current_month):       
+                                    
+                                    if ((sheet_a.cell_value(i, 0)) == (sheet_b.cell_value(j, 0)))  and ((sheet_b.cell_value(j, 1)) == (sheet_a.cell_value(i, 1))) 
+                                    and ((sheet_b.cell_value(j, 2)) == (sheet_a.cell_value(i, 2))):            
+                            
+                                        flag = 0
+                                        break
+                                    else:
+                            
+                                        flag = 1
+                                        
+                                if flag == 1:
+                                    if ((sheet_a.cell_value(i, 0)), (sheet_a.cell_value(i, 1))) not in servers_not_found:
+                                        
+                                        f.write(str(sheet_a.cell_value(i, 0)) +';'+ str(sheet_a.cell_value(i, 1)) +';'+ str(sheet_a.cell_value(i, 2)) 
+                                        +';'+ str(sheet_a.cell_value(i, 3)) +';'+ str(sheet_a.cell_value(i, 4)) +';'+ str(sheet_a.cell_value(i, 7)) +'\n')                                
+                        </code>
+                    </pre>
+                </div>
+                <br>
+                <div class="code">
+                    <pre>
+                        <code>
+                            with open('output.txt', 'a') as f:
+    
+                            f.write('\n')
+                            f.write('USUARIOS NUEVOS:\n\n')
+                        # PRINT HEADER    
+                            f.write((sheet_a.cell_value(0, 0)) +';'+ (sheet_a.cell_value(0, 1)) +';'+ (sheet_a.cell_value(0, 2)) +';'+ (sheet_a.cell_value(0, 3)) 
+                            +';'+ (sheet_a.cell_value(0, 4)) +';'+ (sheet_a.cell_value(0, 7)) + '\n')
+                        
+                        
+                        
+                            
+                            flag = 0
+                            for i in range(rows_current_month):
+                                for j in range(rows_previous_month):        
+                                    
+                                    if ((sheet_b.cell_value(i, 0)) == (sheet_a.cell_value(j, 0)))  and ((sheet_b.cell_value(i, 1)) == (sheet_a.cell_value(j, 1))) 
+                                    and ((sheet_b.cell_value(i, 2)) == (sheet_a.cell_value(j, 2))):            
+                            
+                                        flag = 0
+                                        break
+                                    else:
+                            
+                                        flag = 1
+                                        
+                                if flag == 1:
+                                    
+                                    
+                                    f.write(str(sheet_b.cell_value(i, 0)) +';'+ str(sheet_b.cell_value(i, 1)) +';' + str(sheet_b.cell_value(i, 2)) 
+                                    +';'+ str(sheet_b.cell_value(i, 3)) +';'+ str(sheet_b.cell_value(i, 4)) +';'+ str(sheet_b.cell_value(i, 7)) + '\n')
+                        
+                        
+                        # END                            
+                        </code>
+                    </pre>
+                </div>
+
+                <p class=details>
+                    f.write(str(sheet_b.cell_value(i, 0)) +';'+ str(sheet_b.cell_value(i, 1)) +';' +
+                    str(sheet_b.cell_value(i, 2)) will write the TXT file with the cell information.
+                </p>
+
+
+                <div class="w3-row">
+                    <div class="w3-col m8 s12">
+                        <a href="index.html">
+                            <p><button class="w3-button w3-padding-large w3-white w3-border"><b>BACK TO HOME
+                                    </b></button></p>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <!-- Footer -->
+        <footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
+            <button class="w3-button w3-black w3-disabled w3-padding-large w3-margin-bottom">Previous</button>
+            <button class="w3-button w3-black w3-padding-large w3-margin-bottom">Next » (Under contruction)</button>
+            <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+        </footer>
+
+</body>
+
+</html>

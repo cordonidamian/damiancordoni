@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<title>Damián Cordoni</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="style.css">
+
+<body class="w3-light-grey">
+
+  <!-- w3-content defines a container for fixed size centered content, 
+and is wrapped around the whole page content, except for the footer in this example -->
+  <div class="w3-content" style="max-width:1400px">
+
+
+
+    <!-- Header -->
+    <header class="w3-container w3-center w3-padding-32">
+      <h1 class="title"><b> <a href="index.html">How I´m becoming a coding guy</a> </b></h1>
+      <p class="subtittle">Welcome to this journey, everybody is invited to explore and collaborate!</p>
+    </header>
+
+
+
+
+    <!-- Blog entry -->
+    <div class="w3-card-4 w3-margin w3-white">
+      <img src="img/bombilla.png" style="width:100%">
+      <div class="w3-container">
+        <h3><b>Git and Github - How did I share a website for free.</b></h3>
+        <h5>We are going to use Github to publish our website for free <span class="w3-opacity">March 23, 2020</span>
+        </h5>
+      </div>
+
+
+
+      <div class="w3-container">
+        <p>Hi there! I will be sharing with you the steps that I took to publish a website using Git and Github, I will
+          also be sharing some Git useful commands.</p>
+        <p>You need a <a href="https://github.com/">Github</a> account and <a href="https://git-scm.com/">Git</a>
+          installed on your system... Let's start!</p>
+        <br>
+        <p><span class="stepnum">#1</span> Go to the project folder and start <b>Git Bash</b>:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_1.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#2</span> Execute <b>git init</b>:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_2.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#3</span> To check the status execute <b>git status</b>:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_3.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#4</span> To add all elements execute <b>git add *</b>:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_4.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#5</span> To check again the status execute <b>git status</b> this will show you the
+          elements added (changes to be
+          commited):</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_5.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#6</span> To commit elements execute <b>git commit -m "message"</b>:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_6.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#7</span> Create a new repository in your Github account:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_7.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#8</span> Set the repository name, description and create the repository:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_8.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#9</span> Save the repository "https" address</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_9.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#10</span> To link the repository created with your local project folder execute <b>git
+            remote add origin
+            https.....</b>(after <b>origin</b> you must add the address copied in step #9 ):</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_10.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#11</span> To synchronize your project execute <b>git push origin master -f</b>:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_11.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#12</span> Back to your Github repository, click <b>Branch</b> button, write
+          <b>gh-pages</b> and click <b>create
+            branch</b> button. This will create a new brach:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_12.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">13</span> Click <b>Settings</b> button:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_13.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#14</span> Click <b>Branches</b>, select <b>gh-pages</b> and update:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_14.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#15</span> Click <b>Options</b> scroll down until <b>Github Pages</b> there you will
+          have the link to share your
+          website!:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_15.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#16</span> I had an issue due to Github needs an index.html to work and I had a
+          home.index instead:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_16.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#17</span> I fixed this modifying my project, then I commit the changes with
+          <b>Modifying home.html to
+            index.html</b> as message:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_17.png"
+          style="width:50%">
+
+        <br>
+        <p><span class="stepnum">#18</span> I tried again and bum! there you have your website ready to be shared:</p>
+        <img src="img/Blog tutorials/Git and Github - How did I share a website for free/GitGithub_18.png"
+          style="width:50%">
+
+
+
+
+
+        <div class="w3-row">
+          <div class="w3-col m8 s12">
+            <a href="index.html">
+              <p><button class="w3-button w3-padding-large w3-white w3-border"><b>BACK TO HOME</b></button></p>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <hr>
+
+    <!-- Footer -->
+    <footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
+      <button class="w3-button w3-black w3-disabled w3-padding-large w3-margin-bottom">Previous</button>
+      <button class="w3-button w3-black w3-padding-large w3-margin-bottom">Next » (Under construction)</button>
+      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </footer>
+
+</body>
+
+</html>
