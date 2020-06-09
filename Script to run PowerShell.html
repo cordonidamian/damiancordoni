@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<title>Damián Cordoni</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="style.css">
+
+<body class="w3-light-grey">
+
+    <!-- w3-content defines a container for fixed size centered content, 
+and is wrapped around the whole page content, except for the footer in this example -->
+    <div class="w3-content" style="max-width:1400px">
+
+
+
+        <!-- Header -->
+        <header class="w3-container w3-center w3-padding-32">
+            <h1 class="title"><b> <a href="index.html">How I´m becoming a coding guy</a> </b></h1>
+            <p class="subtittle">Welcome to this journey, everybody is invited to explore and collaborate!</p>
+        </header>
+
+
+
+
+        <!-- Blog entry -->
+        <div class="w3-card-4 w3-margin w3-white">
+            <img src="img/python_script_2.jpg" style="width:100%">
+            <div class="w3-container">
+                <h3><b>A Python Script to run PowerShell commands!</b></h3>
+                <h5>I faced the need to create a Python script to extract several information from a windows server using
+                    PowerShell commands.<span class="w3-opacity">March 28, 2020</span></h5>
+            </div>
+
+            <div class="w3-container">
+                <p>Hi there!</p>
+
+                <p>We have a task called hardening, to start working on it we need to extract information from several
+                    servers, this is another time consuming task so we decided to automate it with Python!
+                </p>
+                <p>
+                    The script will extract the information, save it to a file, then will create a new file with the
+                    previous file information to guarantee that results were not manipulated.
+                </p>
+                <p>
+                    Again, this won´t be a tutorial so you will need to revise the code and if you need any detail just
+                    ping me.
+                </p>
+                <p>
+                    Let's start!
+                </p>
+
+                <p class=details>
+                    This will show us what is the current working directory, just for check.
+                </p>
+
+                <div class="code">
+                    <pre>
+                        <code>
+                            # GET WORKING DIRECTORY
+                            current_dir = os.getcwd()
+                            print(current_dir)           
+                        </code>
+                    </pre>
+                </div>
+                <br>
+                <p class=details>
+                    I created this validation step to check if the file that the script will create after run already
+                    exist. This will give you the change to back up the existing file before re-write in it:
+                </p>
+
+                <div class="code">
+                    <pre>
+                        <code>
+                            # VALIDATION FOR EVIDENCIAS.TXT - IF EXIST
+                            flag = 'no_salir'
+                            
+                            while flag == 'no_salir':
+                                if (os.path.isfile("evidencias.txt")) == True:
+                                    rta= input('Existe un archivo con el mismo nombre que el que se va a genererar (evidencias.txt), 
+                                    si desea eliminarlo ingrese y: ')
+                                    if rta == 'y':
+                                        os.remove("evidencias.txt")
+                                        flag == 'salir'
+                                        break
+                                
+                                    else:
+                                        flag == 'no_salir'
+                                        
+                                else:
+                                    flag == 'salir'
+                                    break
+                            # END VALIDATION FOR EVIDENCIAS.TXT - IF EXIST                                     
+                        </code>
+                    </pre>
+                </div>
+                <br>
+
+                <p class=details>
+                    The code will create a txt file, with a header information:
+                </p>
+
+                <div class="code">
+                    <pre>
+                        <code>
+                            file = open('evidencias.txt','w')
+
+                            with file:
+                                
+                                file.write("##COMIENZO SCRIPT##\n\n")
+                                file.write("##Información de ejecución##\n\n")
+                                file.write('###################################################\n')  
+
+                                # SET DATE | HOSTNAME | DIR   
+                                fecha = datetime.datetime.now()
+                                file.write('Fecha y hora de inicio: ')
+                                file.write(str(fecha)+'\n\n')
+                                
+                                com_a = subprocess.run('hostname', shell=True, capture_output = True)
+                                file.write('Hostname: ')
+                                
+                                file.write(com_a.stdout.decode())
+                                
+                            
+                                com_b = subprocess.run('dir', shell=True, capture_output = True)
+                                file.write('Directorio de ejecución:\n\n ')
+                                
+                                file.write(com_b.stdout.decode())                                 
+                        </code>
+                    </pre>
+                </div>
+
+                <br>
+                <p class=details>
+                    Then the PowerShell commands will extract the information and save this into the file. I will share
+                    just two of them but you can run any command.
+
+                </p>
+                <div class="code">
+                    <pre>
+                        <code>
+                            # START P.S. COMMANDS FOR HARDENING
+                            file.write("##Ejecución de comandos##\n\n")
+                            file.write('###################################################\n') 
+                        
+                            com_1 = subprocess.run('net share', shell=True, capture_output = True)
+                            file.write('PUNTO DE CONTROL: Unidades compartidas (Share) no deben asignar permisos al grupo Everyone.\n')
+                            file.write('COMANDO: Net Share.\n ')
+                            
+                            file.write(com_1.stdout.decode())
+                            if com_1.stderr.decode() == '':
+                                file.write('Comando finalizado.\n')
+                                file.write('###################################################\n')
+                            else:    
+                                file.write('Se encontraron errores:' + " " + '---->' + " " + com_1.stderr.decode())
+                                file.write('###################################################\n')
+                                
+                              
+                            com_2 = subprocess.run(["C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe", 'icacls', 'c:'], 
+                            shell=True, capture_output = True)
+                            file.write('PUNTO DE CONTROL: Asignar en forma recursiva los siguientes permisos a cada disco del sistema 
+                            a partir del directorio raíz.\n')
+                            file.write('COMANDO: icacls c.\n\n')
+                            
+                            file.write(com_2.stdout.decode())
+                            if com_2.stderr.decode() == '':
+                                file.write('Comando finalizado.\n')
+                                file.write('###################################################\n')
+                            else:    
+                                file.write('Se encontraron errores:' + " " + '---->' + " " + com_2.stderr.decode())
+                                file.write('###################################################\n')
+                                
+                                                    
+                        </code>
+                    </pre>
+                </div>
+
+                <br>
+                <p class=details>
+                    And to guarantee that results are not manipulated I created a new file with the evidencias.txt hash
+                    information:
+                </p>
+
+                <div class="code">
+                    <pre>
+                        <code>
+                            # GET THE HASH AND CREATE A FILE WITH THIS INFORMATION
+
+                            file = open('hash-info.txt','w')
+                            
+                            with file:
+                            
+                                com_hash = subprocess.run(["C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe", 
+                                'Get-FileHash evidencias.txt | Format-List'], shell=True, capture_output = True)
+                                file.write('Comando: hash: \n ')
+                                
+                                file.write(com_hash.stdout.decode())
+                                if com_hash.stderr.decode() == '':
+                                    file.write('Comando finalizado.\n')
+                                    file.write('###################################################\n')
+                                else:    
+                                    file.write('Se encontraron errores:' + " " + '---->' + " " + com_hash.stderr.decode())
+                                    file.write('###################################################\n')     
+                                           
+                        </code>
+                    </pre>
+                </div>
+
+
+
+
+
+
+                <div class="w3-row">
+                    <div class="w3-col m8 s12">
+                        <a href="index.html">
+                            <p><button class="w3-button w3-padding-large w3-white w3-border"><b>BACK TO HOME
+                                    </b></button></p>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <!-- Footer -->
+        <footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
+            <button class="w3-button w3-black w3-disabled w3-padding-large w3-margin-bottom">Previous</button>
+            <button class="w3-button w3-black w3-padding-large w3-margin-bottom">Next » (Under contruction)</button>
+            <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+        </footer>
+
+</body>
+
+</html>
